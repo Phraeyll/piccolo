@@ -1,6 +1,3 @@
-use allocator_api2::vec;
-use gc_arena::allocator_api::MetricsAlloc;
-
 use crate::{
     meta_ops::{self, ConcatMetaResult, MetaResult},
     opcode::{Operation, RCIndex},
@@ -80,7 +77,7 @@ pub(super) fn run_vm<'gc>(
             } => {
                 let table = Table::from_parts(
                     &ctx,
-                    RawTable::with_capacity(&ctx, array_size as usize, map_size as usize),
+                    RawTable::with_capacity(array_size as usize, map_size as usize),
                     None,
                 );
                 registers.stack_frame[dest.0 as usize] = Value::Table(table);
@@ -215,7 +212,7 @@ pub(super) fn run_vm<'gc>(
 
             Operation::Closure { proto, dest } => {
                 let proto = current_prototype.prototypes[proto.0 as usize];
-                let mut upvalues = vec::Vec::new_in(MetricsAlloc::new(&ctx));
+                let mut upvalues = Vec::new();
                 for &desc in proto.upvalues.iter() {
                     match desc {
                         UpValueDescriptor::Environment => {

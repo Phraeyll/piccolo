@@ -7,7 +7,7 @@ use crate::{Callback, Closure, Constant, Function, String, Table, Thread, UserDa
 /// The single data type for all Lua variables.
 ///
 /// Every value that Lua code can manipulate directly is ultimately a some kind of `Value`.
-#[derive(Debug, Copy, Clone, Collect)]
+#[derive(Debug, Copy, Clone, Collect, PartialEq)]
 #[collect(no_drop)]
 pub enum Value<'gc> {
     Nil,

@@ -52,7 +52,7 @@ impl<'gc> Hash for Table<'gc> {
 
 impl<'gc> Table<'gc> {
     pub fn new(mc: &Mutation<'gc>) -> Table<'gc> {
-        Self::from_parts(mc, RawTable::new(mc), None)
+        Self::from_parts(mc, RawTable::new(), None)
     }
 
     pub fn from_parts(

@@ -14,7 +14,7 @@ use crate::{
 pub fn load_io<'gc>(ctx: Context<'gc>) {
     ctx.set_global(
         "print",
-        Callback::from_fn(&ctx, |ctx, _, mut stack| {
+        Callback::from_fn(&ctx, |_, _, mut stack| {
             #[derive(Collect)]
             #[collect(require_static)]
             struct PrintSeq {
@@ -63,10 +63,9 @@ pub fn load_io<'gc>(ctx: Context<'gc>) {
 
             stack[..].reverse();
 
-            Ok(CallbackReturn::Sequence(BoxSequence::new(
-                &ctx,
-                PrintSeq { first: true },
-            )))
+            Ok(CallbackReturn::Sequence(BoxSequence::new(PrintSeq {
+                first: true,
+            })))
         }),
     );
 }

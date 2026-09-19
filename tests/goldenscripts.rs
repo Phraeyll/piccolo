@@ -32,11 +32,10 @@ mod collected_print {
     pub fn print_callback<'gc>(ctx: piccolo::Context<'gc>, tx: Sender<Vec<u8>>) -> Callback<'gc> {
         Callback::from_fn(
             &ctx,
-            move |ctx: Context<'_>, _: Execution<'_, '_>, mut stack: Stack<'_, '_>| {
+            move |_: Context<'_>, _: Execution<'_, '_>, mut stack: Stack<'_, '_>| {
                 stack[..].reverse();
 
                 Ok(CallbackReturn::Sequence(BoxSequence::new(
-                    &ctx,
                     PrintSeq {
                         first: true,
                         buf: Cursor::new(Vec::new()),

@@ -95,7 +95,7 @@ where
             shared: shared.clone(),
         },
     );
-    BoxSequence::new(mc, SequenceImpl { shared, roots, fut })
+    BoxSequence::new(SequenceImpl { shared, roots, fut })
 }
 
 /// Return type for futures that are driving an async sequence.

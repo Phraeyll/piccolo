@@ -1,10 +1,7 @@
 use std::{any::TypeId, hash::BuildHasherDefault};
 
 use ahash::AHasher;
-use gc_arena::{
-    allocator_api::MetricsAlloc, arena::Root, lock::RefLock, Collect, DynamicRootSet, Gc, Mutation,
-    Rootable,
-};
+use gc_arena::{arena::Root, lock::RefLock, Collect, DynamicRootSet, Gc, Mutation, Rootable};
 use hashbrown::{hash_map, HashMap};
 
 use crate::{
@@ -35,13 +32,13 @@ impl<'gc, T: Default> Singleton<'gc> for T {
 pub struct Registry<'gc> {
     roots: DynamicRootSet<'gc>,
     singletons:
-        Gc<'gc, RefLock<HashMap<TypeId, Any<'gc>, BuildHasherDefault<AHasher>, MetricsAlloc<'gc>>>>,
+        Gc<'gc, RefLock<HashMap<TypeId, Any<'gc>, BuildHasherDefault<AHasher>>>>,
 }
 
 impl<'gc> Registry<'gc> {
     pub fn new(mc: &Mutation<'gc>) -> Self {
         let singletons =
-            HashMap::with_hasher_in(BuildHasherDefault::default(), MetricsAlloc::new(mc));
+            HashMap::with_hasher(BuildHasherDefault::default());
 
         Self {
             roots: DynamicRootSet::new(mc),
@@ -56,7 +53,7 @@ impl<'gc> Registry<'gc> {
     pub fn singleton<S>(&self, ctx: Context<'gc>) -> &'gc Root<'gc, S>
     where
         S: for<'a> Rootable<'a> + 'static,
-        Root<'gc, S>: Sized + Singleton<'gc> + Collect,
+        Root<'gc, S>: Sized + Singleton<'gc> + Collect<'gc>,
     {
         let mut singletons = self.singletons.borrow_mut(&ctx);
         match singletons.entry(TypeId::of::<S>()) {
