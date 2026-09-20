@@ -9,9 +9,9 @@ jobs:
       - run:
           name: Setup Rust
           command: |
-            rustup component add rustfmt
+            rustup component add rustfmt rust-src
             rustup toolchain uninstall nightly
-            rustup toolchain install nightly -c miri rust-src
+            rustup toolchain install nightly -c miri
       - run:
           name: Version information
           command: |
