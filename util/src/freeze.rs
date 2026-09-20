@@ -193,7 +193,7 @@ impl<'h, 'f, F: for<'a> Freeze<'a>> ScopeGuard for FreezeGuard<'h, 'f, F> {
                 mem::transmute::<<F as Freeze<'f>>::Frozen, <F as Freeze<'static>>::Frozen>(
                     self.value.take().unwrap(),
                 )
-            }
+            },
         );
     }
 
@@ -394,7 +394,10 @@ mod tests {
         let fj = FrozenI32::new();
         let fk = FrozenI32::new();
 
-        let mut fscope = FrozenScope::new().freeze(&fi, &i).freeze(&fj, &j).freeze(&fk, &k);
+        let mut fscope = FrozenScope::new()
+            .freeze(&fi, &i)
+            .freeze(&fj, &j)
+            .freeze(&fk, &k);
 
         fscope.scope(|| {
             fi.with(|f| assert_eq!(**f, 4));

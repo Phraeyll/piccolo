@@ -74,9 +74,9 @@ impl<'gc> Function<'gc> {
                 if (**functions).as_ref().is_empty() {
                     Ok(CallbackReturn::Return)
                 } else {
-                    Ok(CallbackReturn::Sequence(BoxSequence::new(
-                        Compose(*functions, 0),
-                    )))
+                    Ok(CallbackReturn::Sequence(BoxSequence::new(Compose(
+                        *functions, 0,
+                    ))))
                 }
             },
         ))

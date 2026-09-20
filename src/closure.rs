@@ -1,14 +1,14 @@
 use std::hash::{Hash, Hasher};
 
-use gc_arena::{lock::Lock, Collect, Gc, Mutation};
+use gc_arena::{Collect, Gc, Mutation, lock::Lock};
 use thiserror::Error;
 
 use crate::{
+    Constant, Context, String, Table, Value,
     compiler::{self, CompiledPrototype, FunctionRef, LineNumber},
     opcode::OpCode,
     thread::OpenUpValue,
     types::UpValueDescriptor,
-    Constant, Context, String, Table, Value,
 };
 
 // Note: These errors must not have #[error(transparent)] so that

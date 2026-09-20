@@ -5,8 +5,8 @@ use std::{
 };
 
 use gc_arena::{
-    collect::{dyn_collect, DynCollect, Trace},
     Collect, Gc, Mutation,
+    collect::{DynCollect, Trace, dyn_collect},
 };
 
 use crate::{Context, Error, Execution, Function, Stack, Thread};

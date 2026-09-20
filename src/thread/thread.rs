@@ -3,16 +3,16 @@ use std::{
     hash::{Hash, Hasher},
 };
 
-use gc_arena::{lock::RefLock, Collect, Finalization, Gc, GcWeak, Mutation};
+use gc_arena::{Collect, Finalization, Gc, GcWeak, Mutation, lock::RefLock};
 use thiserror::Error;
 
 use crate::{
+    BoxSequence, Callback, Closure, Context, Error, FromMultiValue, Fuel, Function, IntoMultiValue,
+    String, Table, UserData, Value,
     closure::{UpValue, UpValueState},
     fuel::count_fuel,
     meta_ops,
     types::{RegisterIndex, VarCount},
-    BoxSequence, Callback, Closure, Context, Error, FromMultiValue, Fuel, Function, IntoMultiValue,
-    String, Table, UserData, Value,
 };
 
 use super::VMError;

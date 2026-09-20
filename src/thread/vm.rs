@@ -1,13 +1,13 @@
 use crate::{
+    Closure, Constant, Context, Function, String, Table, Value,
     meta_ops::{self, ConcatMetaResult, MetaResult},
     opcode::{Operation, RCIndex},
     table::RawTable,
     thread::thread::MetaReturn,
     types::{RegisterIndex, UpValueDescriptor, VarCount},
-    Closure, Constant, Context, Function, String, Table, Value,
 };
 
-use super::{thread::LuaFrame, VMError};
+use super::{VMError, thread::LuaFrame};
 
 // Runs the VM for the given number of instructions or until the current LuaFrame may have been
 // changed.

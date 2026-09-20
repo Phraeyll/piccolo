@@ -1,8 +1,8 @@
 use gc_arena::Mutation;
 
 use crate::{
-    async_sequence, meta_ops, Callback, CallbackReturn, Context, FromMultiValue, IntoMultiValue,
-    IntoValue, SequenceReturn, Table, Value,
+    Callback, CallbackReturn, Context, FromMultiValue, IntoMultiValue, IntoValue, SequenceReturn,
+    Table, Value, async_sequence, meta_ops,
 };
 
 fn callback<'gc, F, A, R>(name: &'static str, mc: &Mutation<'gc>, f: F) -> Callback<'gc>
@@ -291,7 +291,7 @@ pub fn load_trig<'gc>(ctx: Context<'gc>, math: Table<'gc>) {
 pub fn load_random<'gc>(ctx: Context<'gc>, math: Table<'gc>) {
     use std::{cell::RefCell, rc::Rc};
 
-    use rand::{rngs::SmallRng, RngExt, SeedableRng};
+    use rand::{RngExt, SeedableRng, rngs::SmallRng};
 
     let seeded_rng = Rc::new(RefCell::new(rand::make_rng::<SmallRng>()));
 
@@ -309,7 +309,9 @@ pub fn load_random<'gc>(ctx: Context<'gc>, math: Table<'gc>) {
                     (Some(0), None) => Some(rng.borrow_mut().random::<i64>().into()),
                     (Some(a), None) if a < 0 => None,
                     (Some(a), None) => Some(rng.borrow_mut().random_range(1..=a).into()),
-                    (Some(a), Some(b)) if a <= b => Some(rng.borrow_mut().random_range(a..=b).into()),
+                    (Some(a), Some(b)) if a <= b => {
+                        Some(rng.borrow_mut().random_range(a..=b).into())
+                    }
                     _ => None,
                 }
             },

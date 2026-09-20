@@ -1,13 +1,13 @@
 use std::hash::{Hash, Hasher};
 
-use gc_arena::{lock::RefLock, Collect, Gc, Mutation};
+use gc_arena::{Collect, Gc, Mutation, lock::RefLock};
 use thiserror::Error;
 
 use crate::{
-    compiler::{FunctionRef, LineNumber},
-    thread::BadThreadMode,
     CallbackReturn, Context, Error, FromMultiValue, Fuel, Function, IntoMultiValue, SequencePoll,
     Stack, String, Thread, ThreadMode, Variadic,
+    compiler::{FunctionRef, LineNumber},
+    thread::BadThreadMode,
 };
 
 use super::{
@@ -206,7 +206,7 @@ impl<'gc> Executor<'gc> {
                     return Err(BadThreadMode {
                         found: mode,
                         expected: None,
-                    })
+                    });
                 }
             }
 

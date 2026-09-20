@@ -590,11 +590,7 @@ impl<'gc> Key<'gc> {
 // equal value, if such an integer exists.
 fn f64_to_i64(n: f64) -> Option<i64> {
     let i = n as i64;
-    if i as f64 == n {
-        Some(i)
-    } else {
-        None
-    }
+    if i as f64 == n { Some(i) } else { None }
 }
 
 // Parameter must not be NaN, should return a bit-pattern which is always equal when the
