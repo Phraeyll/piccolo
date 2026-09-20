@@ -45,5 +45,5 @@ rand.workspace = true
 thiserror.workspace = true
 
 [dev-dependencies]
-clap = { version = "4.5", features = ["cargo"] }
-rustyline = "14.0"
+clap = { version = "4.6", features = ["cargo"] }
+rustyline = "18.0"
