@@ -99,7 +99,7 @@ impl<'gc> RawTable<'gc> {
             let hash = self.hash_builder.hash_one(key);
             self.table
                 .find(hash, |(k, _)| k.eq(key))
-                .map_or_default(|(_, v)| *v)
+                .map_or(Default::default(), |(_, v)| *v)
         } else {
             Value::Nil
         }
