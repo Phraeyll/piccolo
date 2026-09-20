@@ -18,7 +18,7 @@ repository = "https://github.com/kyren/piccolo"
 [workspace.dependencies]
 ahash = "0.8"
 anyhow = "1.0"
-gc-arena = { version = "0.7", features = ["hashbrown"] }
+gc-arena = { git = "https://github.com/kyren/gc-arena", rev = "5ea967ab6de74eede60014b75b4960b9e380ddca", features = ["hashbrown"] }
 hashbrown = "0.17"
 rand = "0.10"
 serde = "1.0"
