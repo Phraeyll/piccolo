@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: cimg/rust:1.89
+      - image: cimg/rust:1.95
     steps:
       - checkout
       - run:
