@@ -1,4 +1,4 @@
-use std::{f64, fmt, i64};
+use std::fmt;
 
 use gc_arena::{Collect, Gc};
 

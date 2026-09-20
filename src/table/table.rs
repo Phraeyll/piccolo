@@ -1,7 +1,7 @@
 use std::{
     fmt,
     hash::{Hash, Hasher},
-    i64, mem,
+    mem,
 };
 
 use gc_arena::{Collect, Gc, Mutation, lock::RefLock};

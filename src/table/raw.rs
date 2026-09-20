@@ -1,4 +1,4 @@
-use std::{fmt, hash::Hash, i64, mem};
+use std::{fmt, hash::Hash, mem};
 
 use gc_arena::{Collect, Gc};
 use hashbrown::HashTable;
