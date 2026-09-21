@@ -34,8 +34,6 @@ pub enum NextValue<'gc> {
 #[collect(no_drop)]
 pub struct RawTable<'gc> {
     array: Vec<Value<'gc>>,
-    // TODO: It would be safer to use `hashbrown::HashTable` and access the inner raw table when
-    // necessary, but `HashTable` does not allow access to the inner raw table yet.
     table: HashTable<(Key<'gc>, Value<'gc>)>,
     #[collect(require_static)]
     hash_builder: ahash::random_state::RandomState,
