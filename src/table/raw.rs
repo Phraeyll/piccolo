@@ -151,7 +151,10 @@ impl<'gc> RawTable<'gc> {
                 let table = entry.into_table();
                 if table.len() < table.capacity() {
                     table.insert_unique(hash, (Key::Live(table_key), value), |(k, _)| {
-                        self.hash_builder.hash_one(k)
+                        self.hash_builder.hash_one(
+                            k.live_key()
+                                .expect("all keys must be live when table is grown"),
+                        )
                     });
                     return Ok(Value::Nil);
                 }
@@ -234,7 +237,10 @@ impl<'gc> RawTable<'gc> {
         // Now we can insert the new key value pair
         self.table
             .insert_unique(hash, (Key::Live(table_key), value), |(k, _)| {
-                self.hash_builder.hash_one(k)
+                self.hash_builder.hash_one(
+                    k.live_key()
+                        .expect("all keys must be live when table is grown"),
+                )
             });
 
         Ok(Value::Nil)
@@ -527,7 +533,7 @@ impl<'gc> CanonicalKey<'gc> {
 //
 // This is done to make iteration predictable in the presence of any table mutation that does not
 // cause the table to grow.
-#[derive(Debug, Copy, Clone, Collect, Hash)]
+#[derive(Debug, Copy, Clone, Collect)]
 #[collect(no_drop)]
 enum Key<'gc> {
     Live(CanonicalKey<'gc>),
